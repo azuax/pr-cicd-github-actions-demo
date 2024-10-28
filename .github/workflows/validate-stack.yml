@@ -22,7 +22,7 @@ jobs:
               run: |
                   aws cloudformation validate-template \
                   --template-body file://cloudformation/stack.yaml \
-                  --parameters ParameterKey=Environment,ParameterValue=test, \
+                  --parameters ParameterKey=Environment,ParameterValue=test \
                   ParameterKey=BucketName,ParameterValue=$bucket_name
             - name: Deploy stack
               run: |
@@ -31,7 +31,7 @@ jobs:
                   aws cloudformation create-stack \
                   --stack-name $stack_name \
                   --template-body file://cloudformation/stack.yaml
-                  --parameters ParameterKey=Environment,ParameterValue=test, \
+                  --parameters ParameterKey=Environment,ParameterValue=test \
                   ParameterKey=BucketName,ParameterValue=$bucket_name
             - name: Comment on PR
               uses: actions/github-script@v6
