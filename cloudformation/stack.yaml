@@ -4,6 +4,10 @@ Parameters:
     Environment:
         Type: String
         Description: "The environment name"
+        AllowedValues:
+            - test
+            - prod
+            - qa
     BucketName:
         Type: String
         Description: "The bucket name"
