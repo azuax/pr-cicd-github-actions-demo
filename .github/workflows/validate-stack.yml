@@ -21,7 +21,9 @@ jobs:
             - name: Validate CloudFormation
               run: |
                   aws cloudformation validate-template \
-                  --template-body file://cloudformation/stack.yaml
+                  --template-body file://cloudformation/stack.yaml \
+                  --parameters ParameterKey=Environment,ParameterValue=test, \
+                  ParameterKey=BucketName,ParameterValue=$bucket_name
             - name: Deploy stack
               run: |
                   stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
