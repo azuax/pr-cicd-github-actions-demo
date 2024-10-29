@@ -1,4 +1,4 @@
-name: "Create Stack on pull request and delete it when merge"
+name: "Create Stack on pull request"
 on:
     pull_request:
         paths:
@@ -42,17 +42,3 @@ jobs:
                           repo: context.repo.repo,
                           body: "CloudFormation test stack deployed. Stack name: pr-test-stack-${{ github.event.pull_request.number }}"
                       })
-    cleanup-on-merge:
-        runs-on: ubuntu-latest
-        if: github.event.pull_request.merged == true
-        steps:
-            - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v3
-              with:
-                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  aws-region: us-east-1
-            - name: Delete test stack
-              run: |
-                  stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
-                  aws cloudformation delete-stack --stack-name $stack_name
